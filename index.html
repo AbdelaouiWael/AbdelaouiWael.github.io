@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bokor&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script type="text/javascript" src="js/jquery.superscrollorama.js"></script>
+    <script type="text/javascript" src="js/indexscroll.js"></script>
+
+    <script>
+        // TODO: stel de datum in van waar we willen beginnen tellen.
+        // TODO: Extra oefening: maak je een website die aftelt naar een datum in de toekomst, denk eens na hoe je dit script kan aanpassen hiervoor!
+        var birth = new Date(2026, 3, 30, 8, 30, 0, 0);
+        var audio = new Audio();
+        var video = null;
+        var currentAudio = "none";
+
+        function countSecondsSinceBirth() {
+            var now = new Date();
+            var diff = Math.ceil((birth - now) / 1000);
+            $('#secondsSinceBirth').text(diff);
+            setTimeout(countSecondsSinceBirth, 1000);
+        }
+
+
+        $(document).ready(function () {
+            setTimeout(() => countSecondsSinceBirth(), 1000);
+
+            video = document.getElementById("danceVideo");
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > $("#zone7").position().top - $(window).height() / 2) {
+                    if (currentAudio !== "zone7") {
+                        currentAudio = "zone7";
+                        audio.pause();
+                        if (video !== null)
+                            video.play();
+                    }
+                } else if ($(window).scrollTop() > $("#zone5").position().top - $(window).height() / 2) {
+                    audio.pause();
+                    video.pause();
+
+                } else if ($(window).scrollTop() > $("#zone4").position().top - $(window).height() / 2) {
+                    if (currentAudio != "zone4") {
+                        // aanvullen
+                        currentAudio = "zone4";
+                        audio.pause();
+                        if (video !== null) video.pause();
+                        // TODO: kies een muziekje, of kies feest.mp3 uit de folder audio
+                        audio.src = "";
+                        audio.play();
+                    }
+                } else {
+                    currentAudio = "none";
+                    audio.pause();
+                }
+            });
+
+        });
+    </script>
+    <title>100-dagen website</title>
+
+</head>
+<!-- TODO: Algemeen lettertype kiezen -->
+
+<body class="flex flex-col">
+    <body class="flex flex-col font-[Bokor]"></body>
+    <!-- TODO: Linear background instellen: https://tailwindcss.com/docs/background-image#adding-a-linear-gradient -->
+    <!-- TODO: flex toevoegen: direction column, verticaal en horizontaal centreren -->
+    <div
+  id="zone1"
+  class="block w-full h-screen flex flex-col items-center justify-center bg-linear-to-r from-red-300 to-amber-500 mb-5"
+>
+  <h1 class="font-[Indie_Flower] text-3xl text-lime-600 font-extrabold">
+    Scroll zachtjes naar beneden
+  </h1>
+  <img src="img/navigate-down.png" alt="pijl naar beneden" />
+</div>
+
+    <!-- TODO: Linear background instellen: https://tailwindcss.com/docs/background-image#adding-a-linear-gradient -->
+    <!-- TODO: flex toevoegen: direction row reversed, verticaal centreren -->
+   <div id="zone2" class="flex flex-row-reverse items-center bg-linear-to-r from-cyan-500 to-blue-500">
+        <h1 class="grow basis-0 text-white text-3xl font-bold">
+            Ongeveer <span class="text-yellow-100">5 en een half jaar geleden</span>, op maandag 2 september '20, of
+            <span
+                id="secondsSinceBirth" class="text-yellow-100"></span> seconden geleden kwamen <span
+                class="text-yellow-100">Wij</span>
+            de eerste keer naar de grote school...
+        </h1>
+        <div class="grow basis-0">
+            <p class="flex flex-row">
+                <img class="1 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="1 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="1 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="1 w-1/4 opacity-0" src="img/kind.png" alt="">
+            </p>
+            <p class="flex flex-row">
+                <img class="2 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="2 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="2 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="2 w-1/4 opacity-0" src="img/kind.png" alt="">
+            </p>
+            <p class="flex flex-row">
+                <img class="3 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="3 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="3 w-1/4 opacity-0" src="img/kind.png" alt="">
+                <img class="3 w-1/4 opacity-0" src="img/kind.png" alt="">
+            </p>
+        </div>
+    </div>
+
+
+  <div id="zone3" class="w-full h-screen">
+        <!-- TODO: kleurtje kiezen voor het deel met tekst "100" -->
+        <!-- TODO: Lettertype kiezen -->
+        <h1 class="pt-10- text-white text-6xl font-extrabold text-right">Nog <span class="special">100</span> dagen</h1>
+        <!-- TODO: kleurtje kiezen -->
+        <!-- TODO: Lettertype kiezen -->
+        <h1 class="vieren pt-28 text-6xl font-extrabold text-center">En dat moeten<br />we vieren!!!</h1>
+    </div>
+
+    
+    <div
+  id="zone4"
+  class="flex justify-center items-start w-full h-screen bg-[url('img/feest.jpg')] bg-cover"
+>
+  <div class="w-2/5 bg-black opacity-70 p-12 text-white mt-24">
+    <h1 class="text-3xl text-center mb-12">
+      Wat dacht je van een <span class="text-red-600">feestje</span>?
+    </h1>
+    <h2 class="text-2xl text-center">
+      breng je dansschoenen mee, en je goed humeur! :)
+    </h2>
+  </div>
+</div>
+
+    <div
+  id="zone5"
+  class="w-full flex justify-between items-center p-16 text-white bg-linear-to-b from-red-500 to-orange-500"
+></div>
+
+    <!-- TODO: Linear background instellen: https://tailwindcss.com/docs/background-image#adding-a-linear-gradient -->
+    <div
+  id="zone6"
+  class="w-full py-20 px-10 text-white bg-linear-to-b from-neutral-600 to-neutral-900"
+>
+  <h1 class="text-6xl mb-10">Waar</h1>
+  <h2 class="text-3xl mb-6">Arbeidstraat 14, 9300 Aalst</h2>
+
+  <div id="maps" class="embed-map-responsive">
+    <div class="embed-map-container">
+      <iframe
+        class="embed-map-frame"
+        frameborder="0"
+        scrolling="no"
+        marginheight="0"
+        marginwidth="0"
+        src="https://maps.google.com/maps?width=600&height=400&hl=en&q=arbeidstraat%2014%2C%209300%20Aalst&t=&z=16&ie=UTF8&iwloc=B&output=embed"
+      ></iframe>
+    </div>
+    <style>
+      .embed-map-responsive {
+        position: relative;
+        text-align: right;
+        width: 100%;
+        height: 0;
+        padding-bottom: 66.66%;
+      }
+      .embed-map-container {
+        overflow: hidden;
+        background: none !important;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .embed-map-frame {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </div>
+</div>
+
+    <div id="zone7" class="relative w-full">
+        <h1 class="text-3xl absolute top-10 text-red-600 w-full text-center">Hope to see you there!</h1>
+
+        <video id="danceVideo" controls autoplay class="w-full">
+            Jouw browser ondersteunt deze video niet :(
+            <!-- TODO: Video laten spelen, kies een video van je eigen keuze of gebruik city.mp4 uit de folder video -->
+            <source src="" type="video/mp4">
+            <source src="video/city.mp4" type="video/mp4" />
+        </video>
+    </div>
+</body>
+
+</html>
