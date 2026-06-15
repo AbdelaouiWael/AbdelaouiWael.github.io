@@ -1,4 +1,4 @@
-const CACHE_NAME = "woordsprint-v2";
+const CACHE_NAME = "woordsprint-v3";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -8,8 +8,7 @@ const APP_FILES = [
   "./manifest.webmanifest",
   "./icon.svg",
   "./icon-180.png",
-  "./icon-192.png",
-  "./icon-512.png"
+  "./icon-192.png"
 ];
 
 self.addEventListener("install", (event) => {
