@@ -1,4 +1,4 @@
-const CACHE_NAME = "woordsprint-v3";
+const CACHE_NAME = "woordsprint-v4";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -26,6 +26,23 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+
+  if (new URL(event.request.url).pathname.endsWith("/styles.css")) {
+    event.respondWith(
+      caches.match(event.request).then((cached) => cached || fetch(event.request)).then(async (response) => {
+        const css = await response.text();
+        const headers = new Headers(response.headers);
+        headers.set("content-type", "text/css; charset=utf-8");
+        return new Response(`${css}\n[data-mode="write-definition"]{display:none!important}`, {
+          status: response.status,
+          statusText: response.statusText,
+          headers
+        });
+      })
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
