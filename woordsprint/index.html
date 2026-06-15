@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102a43">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="WoordSprint">
+  <meta name="description" content="Cartes mémoire et exercices écrits de vocabulaire néerlandais, disponibles hors ligne.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>WoordSprint</title>
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" data-go="home" aria-label="Accueil"><span class="brand-mark">W</span><span><strong>WoordSprint</strong><small>Nederlands examen</small></span></button>
+    <button class="status-pill" id="network-status" type="button" data-open-install><span class="status-dot"></span><span id="network-label">Prêt hors ligne</span></button>
+  </header>
+  <main>
+    <section class="view active" id="view-home">
+      <div class="hero"><p class="eyebrow">Révision intensive</p><h1>Écris. Corrige. Recommence.</h1><p>Tout ton vocabulaire, des exercices variés et un mode examen sans indices.</p><div class="hero-actions"><button class="primary" data-go="practice">Commencer les exercices</button><button class="secondary" data-go="flashcards">Voir les cartes</button></div></div>
+      <div class="stats-grid"><article class="stat-card"><span id="stat-total">0</span><small>mots et expressions</small></article><article class="stat-card"><span id="stat-answers">0</span><small>réponses écrites</small></article><article class="stat-card"><span id="stat-accuracy">–</span><small>de réussite</small></article><article class="stat-card accent"><span id="stat-streak">0</span><small>série correcte</small></article></div>
+      <section class="panel"><div class="section-heading"><div><p class="eyebrow">Programme</p><h2>Choisis ta priorité</h2></div><span class="count-badge" id="category-count">0 catégories</span></div><div class="category-grid" id="category-grid"></div></section>
+      <section class="panel compact install-banner"><div><p class="eyebrow">Pour ton iPhone</p><h2>Installe-la avant de partir</h2><p>Après l’installation, l’application fonctionne même sans le même Wi-Fi et sans ordinateur.</p></div><button class="primary" type="button" data-open-install>Instructions iPhone</button></section>
+    </section>
+
+    <section class="view" id="view-flashcards">
+      <div class="page-heading"><button class="back-button" data-go="home">←</button><div><p class="eyebrow">Mémorisation</p><h1>Cartes mémoire</h1></div></div>
+      <div class="toolbar"><label>Série<select id="flash-category"></select></label><label>Sens<select id="flash-direction"><option value="term">Mot → réponse</option><option value="answer">Réponse → mot</option><option value="definition">Définition → mot</option><option value="mixed">Mélangé</option></select></label><button class="icon-button" id="shuffle-flash" type="button">↻</button></div>
+      <div class="progress-row"><div class="progress-track"><span id="flash-progress-bar"></span></div><span id="flash-progress-text">1 / 1</span></div>
+      <button class="flashcard" id="flashcard" type="button"><span class="card-label" id="flash-label">Mot</span><strong id="flash-front"></strong><span class="tap-hint" id="flash-hint">Appuie pour retourner</span><div class="card-back" id="flash-back"><span id="flash-answer"></span><small id="flash-definition"></small></div></button>
+      <div class="rating-actions"><button class="danger-soft" id="flash-again" type="button">À revoir</button><button class="success" id="flash-known" type="button">Je connais</button></div>
+    </section>
+
+    <section class="view" id="view-practice">
+      <div class="page-heading"><button class="back-button" data-go="home">←</button><div><p class="eyebrow">Réponse libre</p><h1>Exercices écrits</h1></div></div>
+      <div id="practice-setup"><section class="panel"><div class="section-heading"><div><p class="eyebrow">Type d’exercice</p><h2>Comment veux-tu travailler ?</h2></div></div><div class="mode-grid" id="mode-grid"></div></section>
+      <section class="panel compact"><div class="form-grid"><label>Catégorie<select id="practice-category"></select></label><label>Nombre de questions<select id="practice-length"><option value="10">10</option><option value="20" selected>20</option><option value="30">30</option><option value="all">Toute la série</option></select></label></div><label class="toggle-row"><span><strong>Revoir d’abord mes erreurs</strong><small>Les mots ratés reviennent plus souvent.</small></span><input type="checkbox" id="prioritize-errors" checked></label><button class="primary full" id="start-practice" type="button">Lancer l’exercice</button></section></div>
+      <div class="session hidden" id="practice-session"><div class="session-topline"><button class="text-button" id="quit-practice" type="button">Quitter</button><span id="practice-score">0 correct</span><span id="practice-counter">1 / 20</span></div><div class="progress-track"><span id="practice-progress-bar"></span></div>
+        <article class="question-card"><div class="question-meta"><span class="type-badge" id="question-type"></span><button class="speak-button hidden" id="speak-question" type="button">Écouter</button></div><p id="question-instruction"></p><h2 id="question-prompt"></h2><p class="question-context hidden" id="question-context"></p><div class="letter-clue hidden" id="letter-clue"></div>
+          <form id="answer-form" autocomplete="off"><textarea id="answer-input" rows="2" placeholder="Écris ta réponse…" autocapitalize="none" spellcheck="false"></textarea><button class="primary full" id="submit-answer" type="submit">Vérifier</button></form>
+          <div class="feedback hidden" id="feedback"><div class="feedback-title"><strong id="feedback-heading"></strong><span id="feedback-icon"></span></div><p>Réponse attendue</p><div class="expected-answer" id="expected-answer"></div><p class="feedback-definition" id="feedback-definition"></p><div class="self-grade hidden" id="self-grade"><p>Ta formulation veut dire la même chose ?</p><div><button class="danger-soft" type="button" data-self-grade="wrong">Non</button><button class="success" type="button" data-self-grade="correct">Oui</button></div></div><button class="primary full" id="next-question" type="button">Question suivante</button></div>
+        </article></div>
+      <div class="session-summary hidden" id="practice-summary"><span class="summary-ring" id="summary-percent">0%</span><p class="eyebrow">Série terminée</p><h2 id="summary-title"></h2><p id="summary-detail"></p><div class="summary-actions"><button class="primary" id="retry-mistakes" type="button">Refaire mes erreurs</button><button class="secondary" id="new-practice" type="button">Nouvel exercice</button></div></div>
+    </section>
+
+    <section class="view" id="view-exam">
+      <div class="page-heading"><button class="back-button" data-go="home">←</button><div><p class="eyebrow">Conditions réelles</p><h1>Examen blanc</h1></div></div>
+      <div id="exam-setup"><section class="exam-intro"><span>EXAMEN</span><h2>Pas d’indice. Pas de correction avant la fin.</h2><p>Questions mélangées: synonymes, définitions, prépositions, expressions et familles de mots.</p></section><section class="panel compact"><div class="form-grid"><label>Questions<select id="exam-length"><option value="20">20 questions · 12 min</option><option value="30" selected>30 questions · 18 min</option><option value="50">50 questions · 30 min</option></select></label><label>Programme<select id="exam-category"></select></label></div><button class="primary full" id="start-exam" type="button">Démarrer l’examen</button></section></div>
+      <div class="session hidden" id="exam-session"><div class="exam-header"><span id="exam-counter">Question 1 / 30</span><strong id="exam-timer">18:00</strong></div><div class="progress-track"><span id="exam-progress-bar"></span></div><article class="question-card"><span class="type-badge" id="exam-type"></span><p id="exam-instruction"></p><h2 id="exam-prompt"></h2><form id="exam-form" autocomplete="off"><textarea id="exam-input" rows="2" placeholder="Écris ta réponse…"></textarea><button class="primary full" type="submit">Valider et continuer</button></form></article></div>
+      <div class="session-summary hidden" id="exam-summary"><span class="summary-ring" id="exam-percent">0%</span><p class="eyebrow">Résultat de l’examen</p><h2 id="exam-result-title"></h2><p id="exam-result-detail"></p><div class="review-list" id="exam-review"></div><div class="summary-actions"><button class="primary" data-go="mistakes">Travailler mes erreurs</button><button class="secondary" id="restart-exam" type="button">Nouvel examen</button></div></div>
+    </section>
+
+    <section class="view" id="view-mistakes"><div class="page-heading"><button class="back-button" data-go="home">←</button><div><p class="eyebrow">Révision ciblée</p><h1>Mes erreurs</h1></div></div><section class="panel"><div class="section-heading"><div><h2>Mots à revoir</h2><p id="mistake-subtitle"></p></div></div><div class="mistake-list" id="mistake-list"></div><button class="primary full" id="practice-mistakes" type="button">Exercice sur mes erreurs</button></section></section>
+  </main>
+
+  <nav class="bottom-nav"><button class="active" data-go="home"><span>⌂</span>Accueil</button><button data-go="flashcards"><span>▣</span>Cartes</button><button data-go="practice"><span>✎</span>Exercices</button><button data-go="exam"><span>◎</span>Examen</button><button data-go="mistakes"><span>!</span>Erreurs</button></nav>
+  <dialog id="install-dialog"><button class="dialog-close" type="button" data-close-install>×</button><p class="eyebrow">Installation iPhone</p><h2>Garde WoordSprint hors ligne</h2><ol><li>Ouvre cette adresse dans <strong>Safari</strong>.</li><li>Appuie sur <strong>Partager</strong>.</li><li>Choisis <strong>Sur l’écran d’accueil</strong>, puis <strong>Ajouter</strong>.</li><li>Ouvre l’icône une fois avec Internet. Ensuite, elle fonctionne hors ligne.</li></ol><div class="offline-note"><strong>Important</strong><p><code>localhost</code> désigne l’appareil lui-même. Il ne peut pas ouvrir le site du PC depuis l’iPhone.</p></div><button class="primary full" type="button" data-close-install>Compris</button></dialog>
+  <script src="data.js"></script><script src="app.js"></script>
+</body>
+</html>
